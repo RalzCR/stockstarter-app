@@ -2,10 +2,18 @@
 
 import { useEffect, useRef } from "react";
 
-export default function TradingViewWidget() {
+type Props = {
+  symbol: string;
+};
+
+export default function TradingViewWidget({ symbol }: Props) {
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!container.current) return;
+
+    container.current.innerHTML = "";
+
     const script = document.createElement("script");
 
     script.src =
@@ -17,7 +25,7 @@ export default function TradingViewWidget() {
     script.innerHTML = `
     {
       "autosize": true,
-      "symbol": "NASDAQ:AAPL",
+      "symbol": "${symbol}",
       "interval": "D",
       "timezone": "Etc/UTC",
       "theme": "dark",
@@ -27,8 +35,8 @@ export default function TradingViewWidget() {
       "support_host": "https://www.tradingview.com"
     }`;
 
-    container.current?.appendChild(script);
-  }, []);
+    container.current.appendChild(script);
+  }, [symbol]);
 
   return (
     <div className="h-[600px] w-full" ref={container}></div>
