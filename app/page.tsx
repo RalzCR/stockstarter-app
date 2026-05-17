@@ -1,4 +1,7 @@
+import AISummary from "../components/AISummary";
+import NewsSection from "../components/NewsSection";
 import StockDashboard from "../components/StockDashboard";
+import LiveMarketCards from "../components/LiveMarketCards";
 
 export default function Home() {
   return (
@@ -46,30 +49,13 @@ export default function Home() {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-          <div className="rounded-3xl border border-white/10 bg-white/10 p-6 backdrop-blur-xl shadow-2xl shadow-green-500/10">
-            <p className="text-sm text-gray-400 mb-2">STOCK</p>
-            <h3 className="text-3xl font-bold mb-1">Apple</h3>
-            <p className="text-gray-400 mb-6">AAPL</p>
-            <p className="text-green-400 text-xl font-bold">+1.82%</p>
-          </div>
-
-          <div className="rounded-3xl border border-white/10 bg-white/10 p-6 backdrop-blur-xl shadow-2xl shadow-cyan-500/10">
-            <p className="text-sm text-gray-400 mb-2">STOCK</p>
-            <h3 className="text-3xl font-bold mb-1">Nvidia</h3>
-            <p className="text-gray-400 mb-6">NVDA</p>
-            <p className="text-green-400 text-xl font-bold">+3.41%</p>
-          </div>
-
-          <div className="rounded-3xl border border-white/10 bg-white/10 p-6 backdrop-blur-xl shadow-2xl shadow-purple-500/10">
-            <p className="text-sm text-gray-400 mb-2">CRYPTO</p>
-            <h3 className="text-3xl font-bold mb-1">Bitcoin</h3>
-            <p className="text-gray-400 mb-6">BTC</p>
-            <p className="text-red-400 text-xl font-bold">-0.74%</p>
-          </div>
-        </div>
+        <LiveMarketCards />
 
         <StockDashboard />
+
+        <NewsSection />
+
+        <AISummary />
       </section>
     </main>
   );
