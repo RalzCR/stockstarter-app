@@ -1,7 +1,8 @@
-import AISummary from "../components/AISummary";
-import NewsSection from "../components/NewsSection";
 import StockDashboard from "../components/StockDashboard";
 import LiveMarketCards from "../components/LiveMarketCards";
+import NewsSection from "../components/NewsSection";
+import AISummary from "../components/AISummary";
+import WaitlistForm from "../components/WaitlistForm";
 
 export default function Home() {
   return (
@@ -18,9 +19,30 @@ export default function Home() {
           StockStarter
         </h1>
 
-        <button className="rounded-full bg-white text-black px-5 py-2 font-semibold hover:bg-gray-200">
+        <div className="hidden md:flex items-center gap-8 text-sm text-gray-300">
+          <a href="#markets" className="hover:text-white">
+            Markets
+          </a>
+
+          <a href="#dashboard" className="hover:text-white">
+            Dashboard
+          </a>
+
+          <a href="#news" className="hover:text-white">
+            News
+          </a>
+
+          <a href="#ai" className="hover:text-white">
+            AI Insights
+          </a>
+        </div>
+
+        <a
+          href="#waitlist"
+          className="rounded-full bg-white text-black px-5 py-2 font-semibold hover:bg-gray-200"
+        >
           Join Waitlist
-        </button>
+        </a>
       </nav>
 
       <section className="relative z-10 max-w-5xl mx-auto text-center">
@@ -40,22 +62,48 @@ export default function Home() {
         </p>
 
         <div className="flex justify-center gap-4 mb-16">
-          <button className="rounded-full bg-green-400 text-black px-7 py-3 font-bold hover:bg-green-300 shadow-lg shadow-green-500/20">
+          <a
+            href="#dashboard"
+            className="rounded-full bg-green-400 text-black px-7 py-3 font-bold hover:bg-green-300 shadow-lg shadow-green-500/20"
+          >
             Explore Dashboard
-          </button>
+          </a>
 
-          <button className="rounded-full border border-white/20 bg-white/5 px-7 py-3 font-bold hover:bg-white/10 backdrop-blur">
+          <a
+            href="#ai"
+            className="rounded-full border border-white/20 bg-white/5 px-7 py-3 font-bold hover:bg-white/10 backdrop-blur"
+          >
             Learn Investing
-          </button>
+          </a>
         </div>
 
-        <LiveMarketCards />
+        <div id="markets">
+          <LiveMarketCards />
+        </div>
 
-        <StockDashboard />
+        <div id="dashboard">
+          <StockDashboard />
+        </div>
 
-        <NewsSection />
+        <div id="news">
+          <NewsSection />
+        </div>
 
-        <AISummary />
+        <div id="ai">
+          <AISummary />
+        </div>
+
+        <WaitlistForm />
+
+        <footer className="mt-16 border-t border-white/10 pt-8 text-sm text-gray-500 text-left">
+          <p className="mb-3">
+            StockStarter is an educational market dashboard. It does not provide financial advice, investment recommendations or trading signals.
+          </p>
+
+          <p>
+            Market prices, crypto data and news can change rapidly. Always do your own research before making financial decisions.
+          </p>
+        </footer>
       </section>
     </main>
   );
