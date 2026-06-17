@@ -19,22 +19,18 @@ export default function NewsSection() {
   useEffect(() => {
     async function fetchNews() {
       try {
-        const apiKey = process.env.NEXT_PUBLIC_NEWS_API_KEY;
-
-        const response = await fetch(
-          `https://newsapi.org/v2/everything?q=stocks OR crypto OR Nvidia OR Apple&language=en&sortBy=publishedAt&pageSize=3&apiKey=${apiKey}`
-        );
+        const response = await fetch("/api/news");
 
         const data = await response.json();
 
-        if (!data.articles) {
+        if (!response.ok || !data.articles || data.articles.length === 0) {
           setError("Could not load news right now.");
           return;
         }
 
         setArticles(data.articles);
       } catch {
-        setError("Something went wrong while loading news.");
+        setError("Could not load news right now.");
       } finally {
         setLoading(false);
       }
