@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
 import LiveMarketCards from "../../components/LiveMarketCards";
+import StockDashboard from "../../components/StockDashboard";
 import NewsSection from "../../components/NewsSection";
 
 type SubscriptionStatus = {
@@ -14,6 +15,13 @@ type SubscriptionStatus = {
 function isPaidAccess(subscription: SubscriptionStatus) {
   return (
     (subscription.plan === "plus" || subscription.plan === "premium") &&
+    (subscription.status === "active" || subscription.status === "trialing")
+  );
+}
+
+function isPremiumAccess(subscription: SubscriptionStatus) {
+  return (
+    subscription.plan === "premium" &&
     (subscription.status === "active" || subscription.status === "trialing")
   );
 }
@@ -68,7 +76,7 @@ export default function PremiumPage() {
     return (
       <main className="min-h-screen bg-black text-white px-8 py-16">
         <section className="max-w-4xl mx-auto">
-          <p className="text-gray-300">Loading premium dashboard...</p>
+          <p className="text-gray-300">Loading member workspace...</p>
         </section>
       </main>
     );
@@ -80,7 +88,7 @@ export default function PremiumPage() {
         <section className="max-w-3xl mx-auto text-center">
           <div className="rounded-3xl border border-white/10 bg-white/5 p-10">
             <p className="mb-4 text-sm uppercase tracking-[0.3em] text-green-400">
-              Premium Dashboard
+              Member Workspace
             </p>
 
             <h1 className="mb-6 text-5xl font-bold">
@@ -118,17 +126,17 @@ export default function PremiumPage() {
 
           <div className="mt-10 rounded-3xl border border-white/10 bg-white/5 p-10 backdrop-blur-xl">
             <p className="mb-4 text-sm uppercase tracking-[0.3em] text-green-400">
-              Premium Dashboard
+              Member Workspace
             </p>
 
             <h1 className="mb-6 text-5xl md:text-6xl font-bold">
-              Upgrade to access premium tools
+              Upgrade to access member tools
             </h1>
 
             <p className="mb-8 text-xl text-gray-300 leading-relaxed">
               Your current plan is {formatPlan(subscription.plan)}. Upgrade to Plus or
-              Premium to access enhanced research tools, premium dashboard workflows
-              and subscription features.
+              Premium to access enhanced research workflows, market checklists,
+              structured dashboards and member-only tools.
             </p>
 
             <a
@@ -142,6 +150,10 @@ export default function PremiumPage() {
       </main>
     );
   }
+
+  const planName = formatPlan(subscription.plan);
+  const workspaceTitle =
+    subscription.plan === "plus" ? "Plus Workspace" : "Premium Workspace";
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-black text-white px-8 py-16">
@@ -167,18 +179,50 @@ export default function PremiumPage() {
 
         <div className="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-12 backdrop-blur-xl">
           <p className="mb-4 text-sm uppercase tracking-[0.3em] text-green-400">
-            Premium Dashboard
+            {workspaceTitle}
           </p>
 
           <h1 className="mb-4 text-5xl md:text-6xl font-bold">
-            Your premium market workspace
+            Your {planName} market workspace
           </h1>
 
           <p className="max-w-3xl text-xl text-gray-300 leading-relaxed">
-            Access enhanced market research tools, structured dashboards and
-            beginner-friendly workflows built for StockStarter {formatPlan(subscription.plan)} users.
+            A structured research area for following markets, reviewing watchlists,
+            reading news, checking risk and building a calmer investing routine.
           </p>
         </div>
+
+        <section className="mt-10 grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="rounded-3xl border border-green-400/20 bg-green-400/10 p-6">
+            <p className="text-sm uppercase tracking-[0.25em] text-green-400 mb-3">
+              Plan
+            </p>
+            <h2 className="text-3xl font-bold">{planName}</h2>
+          </div>
+
+          <div className="rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-6">
+            <p className="text-sm uppercase tracking-[0.25em] text-cyan-400 mb-3">
+              Workspace
+            </p>
+            <h2 className="text-3xl font-bold">Active</h2>
+          </div>
+
+          <div className="rounded-3xl border border-purple-400/20 bg-purple-400/10 p-6">
+            <p className="text-sm uppercase tracking-[0.25em] text-purple-400 mb-3">
+              Access
+            </p>
+            <h2 className="text-3xl font-bold">
+              {subscription.plan === "plus" ? "Plus" : "Full"}
+            </h2>
+          </div>
+
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
+            <p className="text-sm uppercase tracking-[0.25em] text-gray-400 mb-3">
+              Account
+            </p>
+            <h2 className="text-xl font-bold break-words">{email}</h2>
+          </div>
+        </section>
 
         <div className="mt-10">
           <LiveMarketCards />
@@ -187,19 +231,20 @@ export default function PremiumPage() {
         <section className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="rounded-3xl border border-green-400/20 bg-green-400/10 p-8">
             <p className="mb-3 text-sm uppercase tracking-[0.25em] text-green-400">
-              Research Workflow
+              Research Routine
             </p>
 
             <h2 className="mb-4 text-3xl font-bold">
-              Analyse before reacting
+              Daily market checklist
             </h2>
 
             <ul className="space-y-3 text-gray-300">
-              <li>• Check the price movement</li>
-              <li>• Read the latest market news</li>
-              <li>• Review broader market context</li>
-              <li>• Compare against your watchlist</li>
-              <li>• Avoid impulsive decisions</li>
+              <li>• Review major stock and crypto movement</li>
+              <li>• Check whether the move is news-driven</li>
+              <li>• Compare against broader market direction</li>
+              <li>• Review watchlist names before reacting</li>
+              <li>• Separate long-term interest from short-term noise</li>
+              <li>• Avoid making decisions from one headline</li>
             </ul>
           </div>
 
@@ -209,34 +254,170 @@ export default function PremiumPage() {
             </p>
 
             <h2 className="mb-4 text-3xl font-bold">
-              Focus on selected assets
+              Asset tracking framework
             </h2>
 
             <ul className="space-y-3 text-gray-300">
-              <li>• Track companies and crypto assets clearly</li>
-              <li>• Keep research organised</li>
-              <li>• Separate long-term interest from short-term noise</li>
-              <li>• Build a cleaner market routine</li>
+              <li>• Add assets you actually want to follow</li>
+              <li>• Review each asset with the same routine</li>
+              <li>• Track price action and market news together</li>
+              <li>• Keep emotional trades separate from research</li>
+              <li>• Use the dashboard to build consistency</li>
+              <li>• Focus on process before prediction</li>
             </ul>
           </div>
 
           <div className="rounded-3xl border border-purple-400/20 bg-purple-400/10 p-8">
             <p className="mb-3 text-sm uppercase tracking-[0.25em] text-purple-400">
-              Risk Checklist
+              Risk Review
             </p>
 
             <h2 className="mb-4 text-3xl font-bold">
-              Understand market uncertainty
+              Market risk checklist
             </h2>
 
             <ul className="space-y-3 text-gray-300">
-              <li>• Prices can move sharply</li>
-              <li>• News can be incomplete or delayed</li>
+              <li>• Price movement can reverse quickly</li>
+              <li>• News may be delayed, incomplete or inaccurate</li>
+              <li>• Volatility is higher in crypto assets</li>
               <li>• Past performance does not guarantee future results</li>
-              <li>• Diversification and research matter</li>
+              <li>• Research should come before any decision</li>
+              <li>• Never rely on one data source only</li>
             </ul>
           </div>
         </section>
+
+        <section className="mt-10 rounded-3xl border border-white/10 bg-white/5 p-8">
+          <p className="mb-4 text-sm uppercase tracking-[0.25em] text-green-400">
+            Member Dashboard
+          </p>
+
+          <h2 className="text-4xl font-bold mb-6">
+            Live chart workspace
+          </h2>
+
+          <p className="max-w-3xl text-gray-300 leading-relaxed mb-8">
+            Use the chart dashboard to search assets, review price action and keep
+            your market research in one structured workspace.
+          </p>
+
+          <StockDashboard />
+        </section>
+
+        <section className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-8">
+            <p className="mb-3 text-sm uppercase tracking-[0.25em] text-green-400">
+              Beginner Explainer
+            </p>
+
+            <h2 className="mb-4 text-3xl font-bold">
+              Why did this asset move?
+            </h2>
+
+            <div className="space-y-4 text-gray-300">
+              <p>Before reacting to a move, check these five areas:</p>
+
+              <ul className="space-y-3">
+                <li>• Company news or earnings</li>
+                <li>• Wider market direction</li>
+                <li>• Interest rate or inflation expectations</li>
+                <li>• Sector-specific movement</li>
+                <li>• Crypto market sentiment or liquidity</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-8">
+            <p className="mb-3 text-sm uppercase tracking-[0.25em] text-cyan-400">
+              Decision Filter
+            </p>
+
+            <h2 className="mb-4 text-3xl font-bold">
+              Think before acting
+            </h2>
+
+            <div className="space-y-4 text-gray-300">
+              <p>Use this filter before making any financial decision:</p>
+
+              <ul className="space-y-3">
+                <li>• Do I understand what changed?</li>
+                <li>• Am I reacting emotionally?</li>
+                <li>• Is this based on one headline?</li>
+                <li>• Have I checked multiple sources?</li>
+                <li>• Does this match my own research process?</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {isPremiumAccess(subscription) ? (
+          <section className="mt-10 rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-8">
+            <p className="mb-4 text-sm uppercase tracking-[0.25em] text-cyan-400">
+              Premium Research Suite
+            </p>
+
+            <h2 className="text-4xl font-bold mb-6">
+              Advanced research workflow
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="rounded-2xl border border-white/10 bg-black/30 p-6">
+                <h3 className="text-2xl font-bold mb-3">
+                  Market Snapshot
+                </h3>
+
+                <p className="text-gray-300">
+                  Review price movement, news and watchlist context together before
+                  forming a view.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-black/30 p-6">
+                <h3 className="text-2xl font-bold mb-3">
+                  Research Notes
+                </h3>
+
+                <p className="text-gray-300">
+                  Structure your thinking around catalysts, risks, timeframes and
+                  uncertainty before taking action.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-black/30 p-6">
+                <h3 className="text-2xl font-bold mb-3">
+                  Premium Checklist
+                </h3>
+
+                <p className="text-gray-300">
+                  Use a repeatable process to avoid chasing hype, sudden spikes or
+                  emotional market moves.
+                </p>
+              </div>
+            </div>
+          </section>
+        ) : (
+          <section className="mt-10 rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-8">
+            <p className="mb-4 text-sm uppercase tracking-[0.25em] text-cyan-400">
+              Premium Upgrade
+            </p>
+
+            <h2 className="text-4xl font-bold mb-4">
+              Unlock the Premium Research Suite
+            </h2>
+
+            <p className="max-w-3xl text-gray-300 leading-relaxed mb-8">
+              Plus users can upgrade to Premium for the full research workflow,
+              expanded dashboard structure and advanced member tools.
+            </p>
+
+            <a
+              href="/pricing"
+              className="inline-flex rounded-full bg-cyan-400 px-7 py-3 font-bold text-black hover:bg-cyan-300"
+            >
+              View Premium Plan
+            </a>
+          </section>
+        )}
 
         <div className="mt-10">
           <NewsSection />
