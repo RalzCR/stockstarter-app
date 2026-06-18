@@ -5,6 +5,7 @@ import { supabase } from "../../lib/supabaseClient";
 import LiveMarketCards from "../../components/LiveMarketCards";
 import StockDashboard from "../../components/StockDashboard";
 import NewsSection from "../../components/NewsSection";
+import ResearchNotes from "../../components/ResearchNotes";
 
 type SubscriptionStatus = {
   plan: string;
@@ -188,7 +189,7 @@ export default function PremiumPage() {
 
           <p className="max-w-3xl text-xl text-gray-300 leading-relaxed">
             A structured research area for following markets, reviewing watchlists,
-            reading news, checking risk and building a calmer investing routine.
+            reading news, saving notes, checking risk and building a calmer investing routine.
           </p>
         </div>
 
@@ -297,11 +298,15 @@ export default function PremiumPage() {
           </h2>
 
           <p className="max-w-3xl text-gray-300 leading-relaxed mb-8">
-            Use the chart dashboard to search assets, review price action and keep
-            your market research in one structured workspace.
+            Search assets, review price action and keep your market research in one
+            structured workspace.
           </p>
 
           <StockDashboard />
+        </section>
+
+        <section className="mt-10">
+          <ResearchNotes />
         </section>
 
         <section className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
