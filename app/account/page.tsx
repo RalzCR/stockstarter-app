@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
+import ManageBillingButton from "../../components/ManageBillingButton";
 
 type SubscriptionStatus = {
   plan: string;
@@ -200,12 +201,7 @@ export default function AccountPage() {
 
             <div className="mt-8">
               {isPaidPlan ? (
-                <a
-                  href="/#dashboard"
-                  className="inline-flex rounded-full bg-green-400 px-6 py-3 font-bold text-black hover:bg-green-300"
-                >
-                  Open Dashboard
-                </a>
+                <ManageBillingButton />
               ) : (
                 <a
                   href="/pricing"
@@ -251,12 +247,16 @@ export default function AccountPage() {
               Plus and Premium subscriptions are processed securely through Stripe and linked to your StockStarter account.
             </p>
 
-            <a
-              href="/pricing"
-              className="inline-flex rounded-full border border-white/10 bg-white/5 px-6 py-3 font-bold text-white hover:bg-white/10"
-            >
-              View Plans
-            </a>
+            {isPaidPlan ? (
+              <ManageBillingButton />
+            ) : (
+              <a
+                href="/pricing"
+                className="inline-flex rounded-full border border-white/10 bg-white/5 px-6 py-3 font-bold text-white hover:bg-white/10"
+              >
+                View Plans
+              </a>
+            )}
           </div>
         </div>
 
