@@ -6,6 +6,7 @@ import LiveMarketCards from "../../components/LiveMarketCards";
 import StockDashboard from "../../components/StockDashboard";
 import NewsSection from "../../components/NewsSection";
 import ResearchNotes from "../../components/ResearchNotes";
+import CloudWatchlist from "../../components/CloudWatchlist";
 
 type SubscriptionStatus = {
   plan: string;
@@ -136,7 +137,7 @@ export default function PremiumPage() {
 
             <p className="mb-8 text-xl text-gray-300 leading-relaxed">
               Your current plan is {formatPlan(subscription.plan)}. Upgrade to Plus or
-              Premium to access enhanced research workflows, market checklists,
+              Premium to access cloud watchlists, research notes, enhanced workflows,
               structured dashboards and member-only tools.
             </p>
 
@@ -188,8 +189,8 @@ export default function PremiumPage() {
           </h1>
 
           <p className="max-w-3xl text-xl text-gray-300 leading-relaxed">
-            A structured research area for following markets, reviewing watchlists,
-            reading news, saving notes, checking risk and building a calmer investing routine.
+            A structured research area for following markets, saving cloud watchlists,
+            writing research notes, reviewing news, checking risk and building a calmer investing routine.
           </p>
         </div>
 
@@ -203,7 +204,7 @@ export default function PremiumPage() {
 
           <div className="rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-6">
             <p className="text-sm uppercase tracking-[0.25em] text-cyan-400 mb-3">
-              Workspace
+              Cloud Tools
             </p>
             <h2 className="text-3xl font-bold">Active</h2>
           </div>
@@ -243,49 +244,53 @@ export default function PremiumPage() {
               <li>• Review major stock and crypto movement</li>
               <li>• Check whether the move is news-driven</li>
               <li>• Compare against broader market direction</li>
-              <li>• Review watchlist names before reacting</li>
-              <li>• Separate long-term interest from short-term noise</li>
+              <li>• Review saved cloud watchlist assets</li>
+              <li>• Save research notes before reacting</li>
               <li>• Avoid making decisions from one headline</li>
             </ul>
           </div>
 
           <div className="rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-8">
             <p className="mb-3 text-sm uppercase tracking-[0.25em] text-cyan-400">
-              Watchlist Review
+              Watchlist System
             </p>
 
             <h2 className="mb-4 text-3xl font-bold">
-              Asset tracking framework
+              Account-based tracking
             </h2>
 
             <ul className="space-y-3 text-gray-300">
-              <li>• Add assets you actually want to follow</li>
-              <li>• Review each asset with the same routine</li>
-              <li>• Track price action and market news together</li>
-              <li>• Keep emotional trades separate from research</li>
-              <li>• Use the dashboard to build consistency</li>
-              <li>• Focus on process before prediction</li>
+              <li>• Save assets to your StockStarter account</li>
+              <li>• Keep stocks and crypto assets organised</li>
+              <li>• Build a personal research list</li>
+              <li>• Use the same list across sessions</li>
+              <li>• Focus on assets you actively follow</li>
+              <li>• Keep research separate from impulse decisions</li>
             </ul>
           </div>
 
           <div className="rounded-3xl border border-purple-400/20 bg-purple-400/10 p-8">
             <p className="mb-3 text-sm uppercase tracking-[0.25em] text-purple-400">
-              Risk Review
+              Research Notes
             </p>
 
             <h2 className="mb-4 text-3xl font-bold">
-              Market risk checklist
+              Save your thinking
             </h2>
 
             <ul className="space-y-3 text-gray-300">
-              <li>• Price movement can reverse quickly</li>
-              <li>• News may be delayed, incomplete or inaccurate</li>
-              <li>• Volatility is higher in crypto assets</li>
-              <li>• Past performance does not guarantee future results</li>
-              <li>• Research should come before any decision</li>
-              <li>• Never rely on one data source only</li>
+              <li>• Save notes by symbol</li>
+              <li>• Record market context</li>
+              <li>• Track risks and questions</li>
+              <li>• Review your thinking later</li>
+              <li>• Build a calmer investing process</li>
+              <li>• Avoid relying on memory alone</li>
             </ul>
           </div>
+        </section>
+
+        <section className="mt-10">
+          <CloudWatchlist />
         </section>
 
         <section className="mt-10 rounded-3xl border border-white/10 bg-white/5 p-8">
