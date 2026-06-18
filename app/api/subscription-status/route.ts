@@ -10,6 +10,16 @@ function isOwnerEmail(email: string) {
     .includes(email.trim().toLowerCase());
 }
 
+function getOwnerPlan() {
+  const ownerPlan = process.env.OWNER_PLAN?.trim().toLowerCase();
+
+  if (ownerPlan === "plus") {
+    return "plus";
+  }
+
+  return "premium";
+}
+
 export async function GET(request: Request) {
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -50,7 +60,7 @@ export async function GET(request: Request) {
 
   if (isOwnerEmail(data.user.email)) {
     return Response.json({
-      plan: "premium",
+      plan: getOwnerPlan(),
       status: "active",
       currentPeriodEnd: null,
     });
