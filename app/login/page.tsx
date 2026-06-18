@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
 
 export default function LoginPage() {
@@ -10,6 +10,22 @@ export default function LoginPage() {
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState<"success" | "error" | "">("");
   const [loading, setLoading] = useState(false);
+  const [checkingSession, setCheckingSession] = useState(true);
+
+  useEffect(() => {
+    async function redirectSignedInUser() {
+      const { data } = await supabase.auth.getSession();
+
+      if (data.session) {
+        window.location.href = "/account";
+        return;
+      }
+
+      setCheckingSession(false);
+    }
+
+    redirectSignedInUser();
+  }, []);
 
   async function handleAuth() {
     setLoading(true);
@@ -68,6 +84,20 @@ export default function LoginPage() {
     } finally {
       setLoading(false);
     }
+  }
+
+  if (checkingSession) {
+    return (
+      <main className="min-h-screen bg-black text-white px-8 py-16">
+        <section className="max-w-md mx-auto">
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-8">
+            <p className="text-gray-300">
+              Opening your account...
+            </p>
+          </div>
+        </section>
+      </main>
+    );
   }
 
   return (

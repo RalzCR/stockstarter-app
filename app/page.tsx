@@ -3,6 +3,7 @@ import LiveMarketCards from "../components/LiveMarketCards";
 import NewsSection from "../components/NewsSection";
 import AISummary from "../components/AISummary";
 import WaitlistForm from "../components/WaitlistForm";
+import AuthNavButton from "../components/AuthNavButton";
 
 export default function Home() {
   return (
@@ -40,18 +41,11 @@ export default function Home() {
             Pricing
           </a>
 
-          <a href="/login" className="hover:text-white">
-            Sign In
-          </a>
+          <AuthNavButton variant="link" />
         </div>
 
         <div className="flex items-center gap-3">
-          <a
-            href="/login"
-            className="hidden sm:inline-flex rounded-full border border-white/10 bg-white/5 px-5 py-2 font-semibold text-white hover:bg-white/10"
-          >
-            Sign In
-          </a>
+          <AuthNavButton variant="button" />
 
           <a
             href="/pricing"
@@ -129,10 +123,6 @@ export default function Home() {
 
             <a href="/contact" className="hover:text-white">
               Contact
-            </a>
-
-            <a href="/login" className="hover:text-white">
-              Sign In
             </a>
 
             <a href="/account" className="hover:text-white">

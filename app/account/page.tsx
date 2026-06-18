@@ -33,9 +33,7 @@ export default function AccountPage() {
     return (
       <main className="min-h-screen bg-black text-white px-8 py-16">
         <section className="max-w-3xl mx-auto">
-          <p className="text-gray-300">
-            Loading account...
-          </p>
+          <p className="text-gray-300">Loading account...</p>
         </section>
       </main>
     );
