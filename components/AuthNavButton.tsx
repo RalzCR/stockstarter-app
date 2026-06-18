@@ -3,7 +3,13 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 
-export default function AuthNavButton() {
+type AuthNavButtonProps = {
+  variant?: "link" | "button";
+};
+
+export default function AuthNavButton({
+  variant = "button",
+}: AuthNavButtonProps) {
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -27,7 +33,14 @@ export default function AuthNavButton() {
     };
   }, []);
 
-  if (loading) {
+  const href = isSignedIn ? "/account" : "/login";
+  const label = isSignedIn ? "Account" : "Sign In";
+
+  if (loading && variant === "link") {
+    return null;
+  }
+
+  if (loading && variant === "button") {
     return (
       <div className="hidden sm:inline-flex rounded-full border border-white/10 bg-white/5 px-5 py-2 font-semibold text-white opacity-60">
         Account
@@ -35,12 +48,20 @@ export default function AuthNavButton() {
     );
   }
 
+  if (variant === "link") {
+    return (
+      <a href={href} className="hover:text-white">
+        {label}
+      </a>
+    );
+  }
+
   return (
     <a
-      href={isSignedIn ? "/account" : "/login"}
+      href={href}
       className="hidden sm:inline-flex rounded-full border border-white/10 bg-white/5 px-5 py-2 font-semibold text-white hover:bg-white/10"
     >
-      {isSignedIn ? "Account" : "Sign In"}
+      {label}
     </a>
   );
 }
