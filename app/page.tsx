@@ -35,13 +35,17 @@ export default function Home() {
           <a href="#ai" className="hover:text-white">
             AI Insights
           </a>
+
+          <a href="/pricing" className="hover:text-white">
+            Pricing
+          </a>
         </div>
 
         <a
-          href="#waitlist"
+          href="/pricing"
           className="rounded-full bg-white text-black px-5 py-2 font-semibold hover:bg-gray-200"
         >
-          Join Waitlist
+          View Plans
         </a>
       </nav>
 
@@ -58,10 +62,11 @@ export default function Home() {
         </h2>
 
         <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-10">
-          Track stocks, crypto, market trends and AI summaries in one clean beginner-friendly dashboard.
+          Track stocks, crypto, market trends and educational insights in one clean
+          beginner-friendly dashboard.
         </p>
 
-        <div className="flex justify-center gap-4 mb-16">
+        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-16">
           <a
             href="#dashboard"
             className="rounded-full bg-green-400 text-black px-7 py-3 font-bold hover:bg-green-300 shadow-lg shadow-green-500/20"
@@ -70,10 +75,10 @@ export default function Home() {
           </a>
 
           <a
-            href="#ai"
+            href="/pricing"
             className="rounded-full border border-white/20 bg-white/5 px-7 py-3 font-bold hover:bg-white/10 backdrop-blur"
           >
-            Learn Investing
+            View Plans
           </a>
         </div>
 
