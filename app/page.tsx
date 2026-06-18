@@ -41,6 +41,10 @@ export default function Home() {
             Pricing
           </a>
 
+          <a href="/premium" className="hover:text-white">
+            Premium
+          </a>
+
           <AuthNavButton variant="link" />
         </div>
 
@@ -48,10 +52,10 @@ export default function Home() {
           <AuthNavButton variant="button" />
 
           <a
-            href="/pricing"
+            href="/premium"
             className="rounded-full bg-white text-black px-5 py-2 font-semibold hover:bg-gray-200"
           >
-            View Plans
+            Premium Dashboard
           </a>
         </div>
       </nav>
@@ -86,6 +90,13 @@ export default function Home() {
             className="rounded-full border border-white/20 bg-white/5 px-7 py-3 font-bold hover:bg-white/10 backdrop-blur"
           >
             View Plans
+          </a>
+
+          <a
+            href="/premium"
+            className="rounded-full border border-green-400/30 bg-green-400/10 px-7 py-3 font-bold text-green-300 hover:bg-green-400/20 backdrop-blur"
+          >
+            Open Premium
           </a>
         </div>
 
@@ -123,6 +134,14 @@ export default function Home() {
 
             <a href="/contact" className="hover:text-white">
               Contact
+            </a>
+
+            <a href="/pricing" className="hover:text-white">
+              Pricing
+            </a>
+
+            <a href="/premium" className="hover:text-white">
+              Premium
             </a>
 
             <a href="/account" className="hover:text-white">

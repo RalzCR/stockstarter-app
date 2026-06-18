@@ -1,5 +1,15 @@
 import { createClient } from "@supabase/supabase-js";
 
+function isOwnerEmail(email: string) {
+  const ownerEmails = process.env.OWNER_EMAILS || "";
+
+  return ownerEmails
+    .split(",")
+    .map((ownerEmail) => ownerEmail.trim().toLowerCase())
+    .filter(Boolean)
+    .includes(email.trim().toLowerCase());
+}
+
 export async function GET(request: Request) {
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -36,6 +46,14 @@ export async function GET(request: Request) {
       { message: "Please sign in." },
       { status: 401 }
     );
+  }
+
+  if (isOwnerEmail(data.user.email)) {
+    return Response.json({
+      plan: "premium",
+      status: "active",
+      currentPeriodEnd: null,
+    });
   }
 
   const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);

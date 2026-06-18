@@ -16,12 +16,21 @@ export default function SuccessPage() {
             email will be sent by Stripe to the email address used at checkout.
           </p>
 
-          <a
-            href="/"
-            className="inline-flex rounded-full bg-green-400 px-7 py-3 font-bold text-black hover:bg-green-300"
-          >
-            Return to Dashboard
-          </a>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a
+              href="/premium"
+              className="inline-flex rounded-full bg-green-400 px-7 py-3 font-bold text-black hover:bg-green-300"
+            >
+              Open Premium Dashboard
+            </a>
+
+            <a
+              href="/account"
+              className="inline-flex rounded-full border border-white/10 bg-white/5 px-7 py-3 font-bold text-white hover:bg-white/10"
+            >
+              View Account
+            </a>
+          </div>
         </div>
       </section>
     </main>
