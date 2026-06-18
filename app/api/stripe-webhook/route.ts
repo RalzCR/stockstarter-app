@@ -1,6 +1,17 @@
 import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
 
+function getSubscriptionPeriodEnd(subscription: Stripe.Subscription) {
+  const firstSubscriptionItem = subscription.items.data[0];
+  const currentPeriodEnd = firstSubscriptionItem?.current_period_end;
+
+  if (!currentPeriodEnd) {
+    return null;
+  }
+
+  return new Date(currentPeriodEnd * 1000).toISOString();
+}
+
 export async function POST(request: Request) {
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
   const stripeWebhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -79,9 +90,7 @@ export async function POST(request: Request) {
             customer_email: customerEmail,
             plan,
             status: subscription.status,
-            current_period_end: subscription.current_period_end
-              ? new Date(subscription.current_period_end * 1000).toISOString()
-              : null,
+            current_period_end: getSubscriptionPeriodEnd(subscription),
             updated_at: new Date().toISOString(),
           },
           {
@@ -110,9 +119,7 @@ export async function POST(request: Request) {
           stripe_subscription_id: subscription.id,
           plan,
           status: subscription.status,
-          current_period_end: subscription.current_period_end
-            ? new Date(subscription.current_period_end * 1000).toISOString()
-            : null,
+          current_period_end: getSubscriptionPeriodEnd(subscription),
           updated_at: new Date().toISOString(),
         },
         {
