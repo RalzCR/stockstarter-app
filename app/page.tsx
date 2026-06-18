@@ -15,9 +15,9 @@ export default function Home() {
       </div>
 
       <nav className="relative z-10 flex items-center justify-between mb-20">
-        <h1 className="text-2xl font-bold tracking-tight">
+        <a href="/" className="text-2xl font-bold tracking-tight">
           StockStarter
-        </h1>
+        </a>
 
         <div className="hidden md:flex items-center gap-8 text-sm text-gray-300">
           <a href="#markets" className="hover:text-white">
@@ -39,14 +39,27 @@ export default function Home() {
           <a href="/pricing" className="hover:text-white">
             Pricing
           </a>
+
+          <a href="/login" className="hover:text-white">
+            Sign In
+          </a>
         </div>
 
-        <a
-          href="/pricing"
-          className="rounded-full bg-white text-black px-5 py-2 font-semibold hover:bg-gray-200"
-        >
-          View Plans
-        </a>
+        <div className="flex items-center gap-3">
+          <a
+            href="/login"
+            className="hidden sm:inline-flex rounded-full border border-white/10 bg-white/5 px-5 py-2 font-semibold text-white hover:bg-white/10"
+          >
+            Sign In
+          </a>
+
+          <a
+            href="/pricing"
+            className="rounded-full bg-white text-black px-5 py-2 font-semibold hover:bg-gray-200"
+          >
+            View Plans
+          </a>
+        </div>
       </nav>
 
       <section className="relative z-10 max-w-5xl mx-auto text-center">
@@ -116,6 +129,14 @@ export default function Home() {
 
             <a href="/contact" className="hover:text-white">
               Contact
+            </a>
+
+            <a href="/login" className="hover:text-white">
+              Sign In
+            </a>
+
+            <a href="/account" className="hover:text-white">
+              Account
             </a>
           </div>
 
