@@ -76,18 +76,24 @@ export async function POST(request: Request) {
           : session.customer?.id;
 
       const customerEmail =
-        session.customer_details?.email || session.customer_email || null;
+        session.metadata?.customer_email ||
+        session.customer_details?.email ||
+        session.customer_email ||
+        null;
 
       const plan = session.metadata?.plan || "unknown";
+      const userId = session.metadata?.user_id || null;
 
       if (subscriptionId) {
         const subscription = await stripe.subscriptions.retrieve(subscriptionId);
 
         await supabase.from("subscriptions").upsert(
           {
+            user_id: userId,
             stripe_customer_id: customerId || null,
             stripe_subscription_id: subscriptionId,
             customer_email: customerEmail,
+            last_seen_email: customerEmail,
             plan,
             status: subscription.status,
             current_period_end: getSubscriptionPeriodEnd(subscription),
@@ -112,11 +118,16 @@ export async function POST(request: Request) {
           : subscription.customer.id;
 
       const plan = subscription.metadata?.plan || "unknown";
+      const userId = subscription.metadata?.user_id || null;
+      const customerEmail = subscription.metadata?.customer_email || null;
 
       await supabase.from("subscriptions").upsert(
         {
+          user_id: userId,
           stripe_customer_id: customerId,
           stripe_subscription_id: subscription.id,
+          customer_email: customerEmail,
+          last_seen_email: customerEmail,
           plan,
           status: subscription.status,
           current_period_end: getSubscriptionPeriodEnd(subscription),

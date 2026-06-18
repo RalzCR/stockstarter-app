@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import { createClient } from "@supabase/supabase-js";
 
 type CheckoutRequest = {
   plan?: "plus" | "premium";
@@ -10,10 +11,41 @@ export async function POST(request: Request) {
   const premiumPriceId = process.env.STRIPE_PREMIUM_PRICE_ID;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
   if (!stripeSecretKey) {
     return Response.json(
       { message: "Stripe secret key is not configured." },
       { status: 500 }
+    );
+  }
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return Response.json(
+      { message: "Supabase authentication is not configured." },
+      { status: 500 }
+    );
+  }
+
+  const authorizationHeader = request.headers.get("authorization");
+  const accessToken = authorizationHeader?.replace("Bearer ", "");
+
+  if (!accessToken) {
+    return Response.json(
+      { message: "Please sign in before subscribing." },
+      { status: 401 }
+    );
+  }
+
+  const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+  const { data, error } = await supabase.auth.getUser(accessToken);
+
+  if (error || !data.user?.email) {
+    return Response.json(
+      { message: "Please sign in before subscribing." },
+      { status: 401 }
     );
   }
 
@@ -41,6 +73,8 @@ export async function POST(request: Request) {
   try {
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
+      customer_email: data.user.email,
+      client_reference_id: data.user.id,
       line_items: [
         {
           price: priceId,
@@ -51,10 +85,14 @@ export async function POST(request: Request) {
       cancel_url: `${siteUrl}/cancel`,
       metadata: {
         plan: selectedPlan,
+        user_id: data.user.id,
+        customer_email: data.user.email,
       },
       subscription_data: {
         metadata: {
           plan: selectedPlan,
+          user_id: data.user.id,
+          customer_email: data.user.email,
         },
       },
     });

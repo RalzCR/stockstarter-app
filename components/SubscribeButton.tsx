@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { supabase } from "../lib/supabaseClient";
 
 type SubscribeButtonProps = {
   label: string;
@@ -16,24 +17,32 @@ export default function SubscribeButton({ label, plan }: SubscribeButtonProps) {
     setMessage("");
 
     try {
+      const { data } = await supabase.auth.getSession();
+
+      if (!data.session?.access_token) {
+        window.location.href = "/login";
+        return;
+      }
+
       const response = await fetch("/api/checkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${data.session.access_token}`,
         },
         body: JSON.stringify({
           plan,
         }),
       });
 
-      const data = await response.json();
+      const checkoutData = await response.json();
 
-      if (!response.ok || !data.url) {
-        setMessage(data.message || "Checkout could not be started.");
+      if (!response.ok || !checkoutData.url) {
+        setMessage(checkoutData.message || "Checkout could not be started.");
         return;
       }
 
-      window.location.href = data.url;
+      window.location.href = checkoutData.url;
     } catch {
       setMessage("Checkout could not be started. Please try again.");
     } finally {
