@@ -96,12 +96,32 @@ export default function Home() {
         <WaitlistForm />
 
         <footer className="mt-16 border-t border-white/10 pt-8 text-sm text-gray-500 text-left">
+          <div className="mb-6 flex flex-wrap gap-4">
+            <a href="/privacy" className="hover:text-white">
+              Privacy Policy
+            </a>
+
+            <a href="/terms" className="hover:text-white">
+              Terms
+            </a>
+
+            <a href="/refund-policy" className="hover:text-white">
+              Refund Policy
+            </a>
+
+            <a href="/contact" className="hover:text-white">
+              Contact
+            </a>
+          </div>
+
           <p className="mb-3">
-            StockStarter is an educational market dashboard. It does not provide financial advice, investment recommendations or trading signals.
+            StockStarter is an educational market dashboard. It does not provide financial advice,
+            investment recommendations or trading signals.
           </p>
 
           <p>
-            Market prices, crypto data and news can change rapidly. Always do your own research before making financial decisions.
+            Market prices, crypto data and news can change rapidly. Always do your own research
+            before making financial decisions.
           </p>
         </footer>
       </section>
