@@ -27,8 +27,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const priceId =
-    selectedPlan === "plus" ? plusPriceId : premiumPriceId;
+  const priceId = selectedPlan === "plus" ? plusPriceId : premiumPriceId;
 
   if (!priceId) {
     return Response.json(
@@ -52,6 +51,11 @@ export async function POST(request: Request) {
       cancel_url: `${siteUrl}/cancel`,
       metadata: {
         plan: selectedPlan,
+      },
+      subscription_data: {
+        metadata: {
+          plan: selectedPlan,
+        },
       },
     });
 
