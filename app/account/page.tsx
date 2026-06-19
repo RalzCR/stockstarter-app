@@ -212,6 +212,28 @@ export default function AccountPage() {
 
           <div className="rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-8">
             <p className="mb-3 text-sm uppercase tracking-[0.25em] text-cyan-400">
+              Practice Simulator
+            </p>
+
+            <h2 className="mb-4 text-3xl font-bold">
+              Stock Market Simulator
+            </h2>
+
+            <p className="mb-6 text-gray-300">
+              Build a virtual £100,000 portfolio, practise buying and selling,
+              and track your holdings without risking real money.
+            </p>
+
+            <a
+              href="/simulator"
+              className="inline-flex rounded-full bg-cyan-400 px-6 py-3 font-bold text-black hover:bg-cyan-300"
+            >
+              Open Simulator
+            </a>
+          </div>
+
+          <div className="rounded-3xl border border-purple-400/20 bg-purple-400/10 p-8">
+            <p className="mb-3 text-sm uppercase tracking-[0.25em] text-purple-400">
               Member Workspace
             </p>
 
@@ -228,51 +250,51 @@ export default function AccountPage() {
             {isPaidPlan ? (
               <a
                 href="/premium"
-                className="inline-flex rounded-full bg-cyan-400 px-6 py-3 font-bold text-black hover:bg-cyan-300"
+                className="inline-flex rounded-full bg-purple-400 px-6 py-3 font-bold text-black hover:bg-purple-300"
               >
                 Open Member Workspace
               </a>
             ) : (
               <a
                 href="/pricing"
-                className="inline-flex rounded-full bg-cyan-400 px-6 py-3 font-bold text-black hover:bg-cyan-300"
+                className="inline-flex rounded-full border border-white/10 bg-white/5 px-6 py-3 font-bold text-white hover:bg-white/10"
               >
                 View Plans
               </a>
             )}
           </div>
+        </div>
 
-          <div className="rounded-3xl border border-purple-400/20 bg-purple-400/10 p-8">
-            <p className="mb-3 text-sm uppercase tracking-[0.25em] text-purple-400">
-              Premium Access
-            </p>
+        <div className="mt-6 rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-8">
+          <p className="mb-3 text-sm uppercase tracking-[0.25em] text-cyan-400">
+            Premium Access
+          </p>
 
-            <h2 className="mb-4 text-3xl font-bold">
-              {isPremiumPlan ? "Premium active" : "Market Reports"}
-            </h2>
+          <h2 className="mb-4 text-3xl font-bold">
+            {isPremiumPlan ? "Premium active" : "Market Reports"}
+          </h2>
 
-            <p className="mb-6 text-gray-300">
-              {isPremiumPlan
-                ? "Create Premium Market Reports with summaries, catalysts, risks and watch-status tracking."
-                : "Premium unlocks structured market reports and the full research workflow."}
-            </p>
+          <p className="mb-6 max-w-3xl text-gray-300">
+            {isPremiumPlan
+              ? "Create Premium Market Reports with summaries, catalysts, risks and watch-status tracking."
+              : "Premium unlocks structured market reports and the full research workflow."}
+          </p>
 
-            {isPremiumPlan ? (
-              <a
-                href="/premium#premium-reports"
-                className="inline-flex rounded-full bg-purple-400 px-6 py-3 font-bold text-black hover:bg-purple-300"
-              >
-                Open Premium Reports
-              </a>
-            ) : (
-              <a
-                href="/pricing"
-                className="inline-flex rounded-full border border-white/10 bg-white/5 px-6 py-3 font-bold text-white hover:bg-white/10"
-              >
-                View Premium
-              </a>
-            )}
-          </div>
+          {isPremiumPlan ? (
+            <a
+              href="/premium#premium-reports"
+              className="inline-flex rounded-full bg-cyan-400 px-6 py-3 font-bold text-black hover:bg-cyan-300"
+            >
+              Open Premium Reports
+            </a>
+          ) : (
+            <a
+              href="/pricing"
+              className="inline-flex rounded-full border border-white/10 bg-white/5 px-6 py-3 font-bold text-white hover:bg-white/10"
+            >
+              View Premium
+            </a>
+          )}
         </div>
 
         {isPaidPlan && (
@@ -284,6 +306,13 @@ export default function AccountPage() {
             <h2 className="mb-6 text-4xl font-bold">Quick access</h2>
 
             <div className="flex flex-wrap gap-3">
+              <a
+                href="/simulator"
+                className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-5 py-3 font-semibold text-cyan-200 hover:bg-cyan-400/20"
+              >
+                Practice Portfolio
+              </a>
+
               <a
                 href="/premium#cloud-watchlist"
                 className="rounded-full border border-white/10 bg-white/5 px-5 py-3 font-semibold text-white hover:bg-white/10"
@@ -358,8 +387,9 @@ export default function AccountPage() {
           </p>
 
           <p className="text-gray-300 leading-relaxed">
-            StockStarter provides educational market information only. It does
-            not provide financial advice, investment recommendations, trading
+            StockStarter provides educational market information, virtual
+            practice tools and research organisation tools only. It does not
+            provide financial advice, investment recommendations, trading
             signals, brokerage services or portfolio management.
           </p>
         </section>

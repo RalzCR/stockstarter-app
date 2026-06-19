@@ -45,6 +45,10 @@ export default function Home() {
             Workspace
           </a>
 
+          <a href="/simulator" className="hover:text-white">
+            Simulator
+          </a>
+
           <AuthNavButton variant="link" />
         </div>
 
@@ -52,10 +56,10 @@ export default function Home() {
           <AuthNavButton variant="button" />
 
           <a
-            href="/premium"
+            href="/simulator"
             className="rounded-full bg-white text-black px-5 py-2 font-semibold hover:bg-gray-200"
           >
-            Member Workspace
+            Practice Portfolio
           </a>
         </div>
       </nav>
@@ -73,8 +77,8 @@ export default function Home() {
         </h2>
 
         <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-10">
-          Track stocks, crypto, market trends and educational insights in one clean
-          beginner-friendly dashboard.
+          Track stocks, crypto, market trends and educational insights in one
+          clean beginner-friendly dashboard.
         </p>
 
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-16">
@@ -83,6 +87,13 @@ export default function Home() {
             className="rounded-full bg-green-400 text-black px-7 py-3 font-bold hover:bg-green-300 shadow-lg shadow-green-500/20"
           >
             Explore Dashboard
+          </a>
+
+          <a
+            href="/simulator"
+            className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-7 py-3 font-bold text-cyan-300 hover:bg-cyan-400/20 backdrop-blur"
+          >
+            Practice Portfolio
           </a>
 
           <a
@@ -144,19 +155,23 @@ export default function Home() {
               Workspace
             </a>
 
+            <a href="/simulator" className="hover:text-white">
+              Simulator
+            </a>
+
             <a href="/account" className="hover:text-white">
               Account
             </a>
           </div>
 
           <p className="mb-3">
-            StockStarter is an educational market dashboard. It does not provide financial advice,
-            investment recommendations or trading signals.
+            StockStarter is an educational market dashboard. It does not provide
+            financial advice, investment recommendations or trading signals.
           </p>
 
           <p>
-            Market prices, crypto data and news can change rapidly. Always do your own research
-            before making financial decisions.
+            Market prices, crypto data and news can change rapidly. Always do
+            your own research before making financial decisions.
           </p>
         </footer>
       </section>

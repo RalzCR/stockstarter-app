@@ -6,6 +6,10 @@ type MemberWorkspaceMenuProps = {
 
 const workspaceLinks = [
   {
+    label: "Practice Portfolio",
+    href: "/simulator",
+  },
+  {
     label: "Cloud Watchlist",
     href: "#cloud-watchlist",
   },
@@ -54,9 +58,7 @@ export default function MemberWorkspaceMenu({ plan }: MemberWorkspaceMenuProps) 
           {workspaceMenuLabel}
         </p>
 
-        <h2 className="mt-2 text-2xl font-bold">
-          Jump to your tools
-        </h2>
+        <h2 className="mt-2 text-2xl font-bold">Jump to your tools</h2>
       </div>
 
       <div className="flex gap-3 overflow-x-auto pb-1">

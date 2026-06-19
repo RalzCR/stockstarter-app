@@ -13,9 +13,9 @@ export default function PricingSection() {
         </h2>
 
         <p className="mx-auto max-w-3xl text-lg text-gray-300 leading-relaxed">
-          Start free with market charts and news, or upgrade to save research,
-          track holdings, save price levels, score assets, record decisions and
-          build a structured market routine.
+          Start free with market charts, news and a practice simulator, or
+          upgrade to save research, track holdings, score assets, record
+          decisions and build a structured market routine.
         </p>
       </div>
 
@@ -28,14 +28,15 @@ export default function PricingSection() {
           <h3 className="text-4xl font-bold mb-3">£0</h3>
 
           <p className="mb-6 text-gray-300">
-            For exploring live market data and beginner-friendly financial
-            information.
+            For exploring live market data, practising with virtual money and
+            learning the basics of stocks and crypto.
           </p>
 
           <ul className="mb-8 space-y-3 text-gray-300">
             <li>• Live market dashboard</li>
             <li>• Stock and crypto chart workspace</li>
             <li>• Latest market news</li>
+            <li>• Practice Portfolio Simulator with virtual cash</li>
             <li>• Beginner-friendly market explanations</li>
             <li>• Educational investing reminders</li>
           </ul>
@@ -70,6 +71,7 @@ export default function PricingSection() {
           <ul className="mb-8 space-y-3 text-gray-300">
             <li>• Everything in Free</li>
             <li>• Plus member workspace</li>
+            <li>• Full Practice Portfolio Simulator access</li>
             <li>• Cloud Watchlist saved to your account</li>
             <li>• Portfolio Tracker for manual holdings</li>
             <li>• Price Levels Tracker</li>
@@ -102,6 +104,7 @@ export default function PricingSection() {
           <ul className="mb-8 space-y-3 text-gray-300">
             <li>• Everything in Plus</li>
             <li>• Premium member workspace</li>
+            <li>• Full Stock Market Simulator access</li>
             <li>• Premium Market Research Reports</li>
             <li>• Saved summaries, catalysts and risks</li>
             <li>• Research timeframe and watch-status tracking</li>
@@ -123,10 +126,10 @@ export default function PricingSection() {
         </p>
 
         <p className="text-gray-300 leading-relaxed">
-          StockStarter provides educational market information and personal
-          research organisation tools only. It does not provide financial advice,
-          investment recommendations, trading signals, brokerage services or
-          portfolio management.
+          StockStarter provides educational market information, virtual practice
+          tools and personal research organisation tools only. It does not
+          provide financial advice, investment recommendations, trading signals,
+          brokerage services or portfolio management.
         </p>
       </div>
     </section>
