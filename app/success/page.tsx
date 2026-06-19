@@ -21,7 +21,7 @@ export default function SuccessPage() {
               href="/premium"
               className="inline-flex rounded-full bg-green-400 px-7 py-3 font-bold text-black hover:bg-green-300"
             >
-              Open Premium Dashboard
+              Open Member Workspace
             </a>
 
             <a

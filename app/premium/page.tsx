@@ -1,5 +1,6 @@
 "use client";
 
+import ResearchScorecard from "../../components/ResearchScorecard";
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
 import LiveMarketCards from "../../components/LiveMarketCards";
@@ -307,6 +308,10 @@ export default function PremiumPage() {
 
         <section id="price-levels" className="mt-10 scroll-mt-10">
           <PriceLevelsTracker />
+        </section>
+
+        <section id="research-scorecard" className="scroll-mt-24">
+          <ResearchScorecard />
         </section>
 
         <section id="decision-journal" className="mt-10 scroll-mt-10">

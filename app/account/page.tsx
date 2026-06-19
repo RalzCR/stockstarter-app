@@ -163,7 +163,9 @@ export default function AccountPage() {
             Your StockStarter account
           </h1>
 
-          <p className="text-xl text-gray-300">Signed in as {email}</p>
+          <p className="text-xl text-gray-300 break-all">
+            Signed in as {email}
+          </p>
         </div>
 
         <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -219,7 +221,7 @@ export default function AccountPage() {
 
             <p className="mb-6 text-gray-300">
               {isPaidPlan
-                ? "Access your cloud watchlist, portfolio tracker, price levels, decision journal, research notes and member dashboard."
+                ? "Access your cloud watchlist, portfolio tracker, price levels, scorecards, decision journal, research notes and member dashboard."
                 : "Upgrade to Plus or Premium to unlock account-based research tools."}
             </p>
 
@@ -304,6 +306,13 @@ export default function AccountPage() {
               </a>
 
               <a
+                href="/premium#research-scorecard"
+                className="rounded-full border border-purple-400/30 bg-purple-400/10 px-5 py-3 font-semibold text-purple-200 hover:bg-purple-400/20"
+              >
+                Research Scorecard
+              </a>
+
+              <a
                 href="/premium#decision-journal"
                 className="rounded-full border border-yellow-400/30 bg-yellow-400/10 px-5 py-3 font-semibold text-yellow-200 hover:bg-yellow-400/20"
               >
@@ -349,9 +358,9 @@ export default function AccountPage() {
           </p>
 
           <p className="text-gray-300 leading-relaxed">
-            StockStarter provides educational market information only. It does not
-            provide financial advice, investment recommendations, trading signals,
-            brokerage services or portfolio management.
+            StockStarter provides educational market information only. It does
+            not provide financial advice, investment recommendations, trading
+            signals, brokerage services or portfolio management.
           </p>
         </section>
       </section>

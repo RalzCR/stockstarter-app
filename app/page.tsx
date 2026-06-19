@@ -42,7 +42,7 @@ export default function Home() {
           </a>
 
           <a href="/premium" className="hover:text-white">
-            Premium
+            Workspace
           </a>
 
           <AuthNavButton variant="link" />
@@ -55,7 +55,7 @@ export default function Home() {
             href="/premium"
             className="rounded-full bg-white text-black px-5 py-2 font-semibold hover:bg-gray-200"
           >
-            Premium Dashboard
+            Member Workspace
           </a>
         </div>
       </nav>
@@ -96,7 +96,7 @@ export default function Home() {
             href="/premium"
             className="rounded-full border border-green-400/30 bg-green-400/10 px-7 py-3 font-bold text-green-300 hover:bg-green-400/20 backdrop-blur"
           >
-            Open Premium
+            Open Workspace
           </a>
         </div>
 
@@ -141,7 +141,7 @@ export default function Home() {
             </a>
 
             <a href="/premium" className="hover:text-white">
-              Premium
+              Workspace
             </a>
 
             <a href="/account" className="hover:text-white">

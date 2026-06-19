@@ -14,8 +14,8 @@ export default function PricingSection() {
 
         <p className="mx-auto max-w-3xl text-lg text-gray-300 leading-relaxed">
           Start free with market charts and news, or upgrade to save research,
-          track holdings, watch price levels, record decisions and build a
-          structured market routine.
+          track holdings, save price levels, score assets, record decisions and
+          build a structured market routine.
         </p>
       </div>
 
@@ -28,7 +28,8 @@ export default function PricingSection() {
           <h3 className="text-4xl font-bold mb-3">£0</h3>
 
           <p className="mb-6 text-gray-300">
-            For exploring live market data and beginner-friendly financial information.
+            For exploring live market data and beginner-friendly financial
+            information.
           </p>
 
           <ul className="mb-8 space-y-3 text-gray-300">
@@ -62,7 +63,8 @@ export default function PricingSection() {
           </h3>
 
           <p className="mb-6 text-gray-300">
-            For users who want account-based tools to save research, track assets and improve decision-making.
+            For users who want account-based tools to save research, track
+            assets and improve decision-making.
           </p>
 
           <ul className="mb-8 space-y-3 text-gray-300">
@@ -71,6 +73,7 @@ export default function PricingSection() {
             <li>• Cloud Watchlist saved to your account</li>
             <li>• Portfolio Tracker for manual holdings</li>
             <li>• Price Levels Tracker</li>
+            <li>• Research Scorecard for clearer asset decisions</li>
             <li>• Decision Journal for clearer thinking</li>
             <li>• Research Notes by stock or crypto symbol</li>
             <li>• Saved asset research workflow</li>
@@ -92,7 +95,8 @@ export default function PricingSection() {
           </h3>
 
           <p className="mb-6 text-gray-300">
-            For users who want the full structured research suite and deeper market organisation tools.
+            For users who want the full structured research suite and deeper
+            market organisation tools.
           </p>
 
           <ul className="mb-8 space-y-3 text-gray-300">
@@ -103,6 +107,7 @@ export default function PricingSection() {
             <li>• Research timeframe and watch-status tracking</li>
             <li>• Advanced decision filters</li>
             <li>• Full Price Levels access</li>
+            <li>• Full Research Scorecard access</li>
             <li>• Full Decision Journal access</li>
             <li>• Premium research workflow section</li>
             <li>• Full access to current and future Premium tools</li>
@@ -118,9 +123,10 @@ export default function PricingSection() {
         </p>
 
         <p className="text-gray-300 leading-relaxed">
-          StockStarter provides educational market information and personal research
-          organisation tools only. It does not provide financial advice, investment
-          recommendations, trading signals, brokerage services or portfolio management.
+          StockStarter provides educational market information and personal
+          research organisation tools only. It does not provide financial advice,
+          investment recommendations, trading signals, brokerage services or
+          portfolio management.
         </p>
       </div>
     </section>
