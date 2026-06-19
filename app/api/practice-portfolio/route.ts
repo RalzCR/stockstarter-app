@@ -68,6 +68,8 @@ async function getOrCreatePortfolio(userId: string, email: string) {
     .maybeSingle();
 
   if (existingError) {
+    console.error("Practice portfolio load error:", existingError);
+
     return {
       portfolio: null,
       error: "Practice Portfolio could not be loaded.",
@@ -94,6 +96,8 @@ async function getOrCreatePortfolio(userId: string, email: string) {
     .single();
 
   if (createError) {
+    console.error("Practice portfolio create error:", createError);
+
     return {
       portfolio: null,
       error: "Practice Portfolio could not be created.",
@@ -420,5 +424,112 @@ export async function POST(request: Request) {
       side === "buy"
         ? "Virtual buy trade completed."
         : "Virtual sell trade completed.",
+  });
+}
+
+export async function DELETE(request: Request) {
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !supabaseServiceRoleKey) {
+    return Response.json(
+      { message: "Practice Portfolio service is not configured." },
+      { status: 500 }
+    );
+  }
+
+  const { user, error } = await getUserFromRequest(request);
+
+  if (error || !user?.email) {
+    return Response.json({ message: error }, { status: 401 });
+  }
+
+  const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
+
+  const { error: holdingsDeleteError } = await supabase
+    .from("practice_holdings")
+    .delete()
+    .eq("user_id", user.id);
+
+  if (holdingsDeleteError) {
+    console.error("Practice holdings reset error:", holdingsDeleteError);
+
+    return Response.json(
+      { message: "Practice holdings could not be reset." },
+      { status: 500 }
+    );
+  }
+
+  const { error: tradesDeleteError } = await supabase
+    .from("practice_trades")
+    .delete()
+    .eq("user_id", user.id);
+
+  if (tradesDeleteError) {
+    console.error("Practice trades reset error:", tradesDeleteError);
+
+    return Response.json(
+      { message: "Practice trade history could not be reset." },
+      { status: 500 }
+    );
+  }
+
+  const { data: existingPortfolio, error: portfolioLoadError } = await supabase
+    .from("practice_portfolios")
+    .select("*")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  if (portfolioLoadError) {
+    console.error("Practice portfolio reset load error:", portfolioLoadError);
+
+    return Response.json(
+      { message: "Practice Portfolio could not be reset." },
+      { status: 500 }
+    );
+  }
+
+  if (existingPortfolio) {
+    const { error: resetPortfolioError } = await supabase
+      .from("practice_portfolios")
+      .update({
+        starting_cash: 100000,
+        cash_balance: 100000,
+        currency: "GBP",
+        updated_at: new Date().toISOString(),
+      })
+      .eq("user_id", user.id);
+
+    if (resetPortfolioError) {
+      console.error("Practice portfolio reset error:", resetPortfolioError);
+
+      return Response.json(
+        { message: "Practice Portfolio could not be reset." },
+        { status: 500 }
+      );
+    }
+  } else {
+    const { error: createPortfolioError } = await supabase
+      .from("practice_portfolios")
+      .insert({
+        user_id: user.id,
+        user_email: user.email,
+        starting_cash: 100000,
+        cash_balance: 100000,
+        currency: "GBP",
+      });
+
+    if (createPortfolioError) {
+      console.error("Practice portfolio reset create error:", createPortfolioError);
+
+      return Response.json(
+        { message: "Practice Portfolio could not be recreated." },
+        { status: 500 }
+      );
+    }
+  }
+
+  return Response.json({
+    message: "Practice Portfolio reset to £100,000 virtual cash.",
   });
 }

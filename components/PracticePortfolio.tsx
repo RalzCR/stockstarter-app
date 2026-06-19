@@ -70,15 +70,15 @@ function formatNumber(value: number) {
 function MiniLineChart({ points }: { points: MarketData["chart"] }) {
   if (!points || points.length < 2) {
     return (
-      <div className="flex h-32 items-center justify-center rounded-2xl border border-white/10 bg-black/30 text-sm text-gray-500">
+      <div className="flex h-40 items-center justify-center rounded-2xl border border-white/10 bg-black/30 text-sm text-gray-500">
         Chart unavailable
       </div>
     );
   }
 
-  const width = 520;
-  const height = 150;
-  const padding = 16;
+  const width = 720;
+  const height = 220;
+  const padding = 24;
   const prices = points.map((point) => point.price);
   const minPrice = Math.min(...prices);
   const maxPrice = Math.max(...prices);
@@ -104,12 +104,12 @@ function MiniLineChart({ points }: { points: MarketData["chart"] }) {
 
   return (
     <div className="rounded-2xl border border-white/10 bg-black/30 p-4">
-      <svg viewBox={`0 0 ${width} ${height}`} className="h-36 w-full">
+      <svg viewBox={`0 0 ${width} ${height}`} className="h-52 w-full">
         <path
           d={path}
           fill="none"
           stroke={isUp ? "#4ade80" : "#f87171"}
-          strokeWidth="4"
+          strokeWidth="5"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
@@ -132,7 +132,7 @@ function MiniLineChart({ points }: { points: MarketData["chart"] }) {
               key={`${point.time}-${index}`}
               cx={x}
               cy={y}
-              r="5"
+              r="6"
               fill={isUp ? "#4ade80" : "#f87171"}
             />
           );
@@ -155,10 +155,12 @@ export default function PracticePortfolio() {
     Record<string, MarketData>
   >({});
   const [side, setSide] = useState<"buy" | "sell">("buy");
+  const [tradeMode, setTradeMode] = useState<"quantity" | "amount">("amount");
   const [symbol, setSymbol] = useState("");
   const [assetName, setAssetName] = useState("");
   const [assetType, setAssetType] = useState("stock");
   const [quantity, setQuantity] = useState("");
+  const [investmentAmount, setInvestmentAmount] = useState("");
   const [tradePrice, setTradePrice] = useState("");
   const [currency, setCurrency] = useState<"GBP" | "USD" | "EUR">("GBP");
   const [notes, setNotes] = useState("");
@@ -168,19 +170,41 @@ export default function PracticePortfolio() {
   const [messageType, setMessageType] = useState<"success" | "error" | "">("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [resetting, setResetting] = useState(false);
   const [lookingUp, setLookingUp] = useState(false);
   const [refreshingPrices, setRefreshingPrices] = useState(false);
 
-  const estimatedTradeValue = useMemo(() => {
-    const q = Number(quantity);
-    const p = Number(tradePrice);
+  const finalTradeQuantity = useMemo(() => {
+    const price = Number(tradePrice);
 
-    if (!q || !p || q <= 0 || p <= 0) {
+    if (tradeMode === "amount") {
+      const amount = Number(investmentAmount);
+
+      if (!amount || !price || amount <= 0 || price <= 0) {
+        return 0;
+      }
+
+      return amount / price;
+    }
+
+    const q = Number(quantity);
+
+    if (!q || q <= 0) {
       return 0;
     }
 
-    return q * p;
-  }, [quantity, tradePrice]);
+    return q;
+  }, [tradeMode, quantity, investmentAmount, tradePrice]);
+
+  const estimatedTradeValue = useMemo(() => {
+    const price = Number(tradePrice);
+
+    if (!finalTradeQuantity || !price || finalTradeQuantity <= 0 || price <= 0) {
+      return 0;
+    }
+
+    return finalTradeQuantity * price;
+  }, [finalTradeQuantity, tradePrice]);
 
   const investedValue = useMemo(() => {
     return holdings.reduce((total, holding) => {
@@ -306,7 +330,7 @@ export default function PracticePortfolio() {
       const accessToken = await getAccessToken();
 
       if (!accessToken) {
-        setMessage("Sign in to use the Practice Portfolio.");
+        setMessage("Sign in to use the Stock Market Simulator.");
         setMessageType("error");
         setLoading(false);
         return;
@@ -321,7 +345,7 @@ export default function PracticePortfolio() {
       const data = await response.json();
 
       if (!response.ok) {
-        setMessage(data.message || "Practice Portfolio could not be loaded.");
+        setMessage(data.message || "Stock Market Simulator could not be loaded.");
         setMessageType("error");
         return;
       }
@@ -332,7 +356,7 @@ export default function PracticePortfolio() {
 
       await refreshHoldingPrices(data.holdings || []);
     } catch {
-      setMessage("Practice Portfolio could not be loaded.");
+      setMessage("Stock Market Simulator could not be loaded.");
       setMessageType("error");
     } finally {
       setLoading(false);
@@ -354,6 +378,17 @@ export default function PracticePortfolio() {
         return;
       }
 
+      if (!finalTradeQuantity || finalTradeQuantity <= 0) {
+        setMessage(
+          tradeMode === "amount"
+            ? "Enter an amount to invest and a valid trade price."
+            : "Enter a valid quantity."
+        );
+        setMessageType("error");
+        setSaving(false);
+        return;
+      }
+
       const response = await fetch("/api/practice-portfolio", {
         method: "POST",
         headers: {
@@ -365,7 +400,7 @@ export default function PracticePortfolio() {
           symbol,
           assetName,
           assetType,
-          quantity: Number(quantity),
+          quantity: finalTradeQuantity,
           tradePrice: Number(tradePrice),
           currency,
           notes,
@@ -386,6 +421,7 @@ export default function PracticePortfolio() {
       setAssetName("");
       setAssetType("stock");
       setQuantity("");
+      setInvestmentAmount("");
       setTradePrice("");
       setCurrency("GBP");
       setNotes("");
@@ -399,6 +435,63 @@ export default function PracticePortfolio() {
     }
   }
 
+  async function resetSimulator() {
+    const confirmed = window.confirm(
+      "Reset your simulator? This will delete all virtual holdings and trade history, and restore £100,000 virtual cash."
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setResetting(true);
+    setMessage("");
+    setMessageType("");
+
+    try {
+      const accessToken = await getAccessToken();
+
+      if (!accessToken) {
+        setMessage("Sign in to reset the simulator.");
+        setMessageType("error");
+        setResetting(false);
+        return;
+      }
+
+      const response = await fetch("/api/practice-portfolio", {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setMessage(data.message || "Simulator could not be reset.");
+        setMessageType("error");
+        return;
+      }
+
+      setMessage(data.message);
+      setMessageType("success");
+      setSelectedMarketData(null);
+      setMarketDataBySymbol({});
+      setSymbol("");
+      setAssetName("");
+      setQuantity("");
+      setInvestmentAmount("");
+      setTradePrice("");
+      setNotes("");
+      await loadPortfolio();
+    } catch {
+      setMessage("Simulator could not be reset.");
+      setMessageType("error");
+    } finally {
+      setResetting(false);
+    }
+  }
+
   useEffect(() => {
     loadPortfolio();
   }, []);
@@ -406,19 +499,31 @@ export default function PracticePortfolio() {
   return (
     <section className="space-y-10">
       <div className="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-12 backdrop-blur-xl">
-        <p className="mb-4 text-sm uppercase tracking-[0.3em] text-green-400">
-          Stock Market Simulator
-        </p>
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+          <div>
+            <p className="mb-4 text-sm uppercase tracking-[0.3em] text-green-400">
+              Stock Market Simulator
+            </p>
 
-        <h1 className="mb-5 text-5xl md:text-6xl font-bold">
-          Build a virtual £100,000 portfolio
-        </h1>
+            <h1 className="mb-5 text-5xl md:text-6xl font-bold">
+              Build a virtual £100,000 portfolio
+            </h1>
 
-        <p className="max-w-4xl text-xl text-gray-300 leading-relaxed">
-          Practise buying and selling stocks with virtual money. Use live price
-          lookup, track your holdings and watch your simulator portfolio move
-          with the market.
-        </p>
+            <p className="max-w-4xl text-xl text-gray-300 leading-relaxed">
+              Practise buying and selling stocks with virtual money. Use live
+              price lookup, invest by amount or quantity, and watch your
+              simulator portfolio move with the market.
+            </p>
+          </div>
+
+          <button
+            onClick={resetSimulator}
+            disabled={resetting}
+            className="shrink-0 rounded-full border border-red-400/30 bg-red-400/10 px-6 py-3 font-bold text-red-200 hover:bg-red-400/20 disabled:opacity-50"
+          >
+            {resetting ? "Resetting..." : "Reset Simulator"}
+          </button>
+        </div>
       </div>
 
       {message && (
@@ -433,7 +538,7 @@ export default function PracticePortfolio() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-6 gap-5">
         <div className="rounded-3xl border border-green-400/20 bg-green-400/10 p-6">
           <p className="mb-3 text-sm uppercase tracking-[0.25em] text-green-400">
             Starting Cash
@@ -466,11 +571,21 @@ export default function PracticePortfolio() {
 
         <div className="rounded-3xl border border-yellow-400/20 bg-yellow-400/10 p-6">
           <p className="mb-3 text-sm uppercase tracking-[0.25em] text-yellow-400">
-            Live Holding Value
+            Live Holdings
           </p>
 
           <h2 className="text-3xl font-bold">
             {formatMoney(liveHoldingsValue, "GBP")}
+          </h2>
+        </div>
+
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
+          <p className="mb-3 text-sm uppercase tracking-[0.25em] text-gray-400">
+            Total Value
+          </p>
+
+          <h2 className="text-3xl font-bold">
+            {formatMoney(totalPracticeValue, "GBP")}
           </h2>
         </div>
 
@@ -516,6 +631,17 @@ export default function PracticePortfolio() {
             <option value="sell">Sell</option>
           </select>
 
+          <select
+            value={tradeMode}
+            onChange={(event) =>
+              setTradeMode(event.target.value as "quantity" | "amount")
+            }
+            className="rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-white outline-none focus:border-green-300/60"
+          >
+            <option value="amount">Invest amount</option>
+            <option value="quantity">Choose quantity</option>
+          </select>
+
           <input
             value={symbol}
             onChange={(event) => setSymbol(event.target.value)}
@@ -527,7 +653,7 @@ export default function PracticePortfolio() {
             value={assetName}
             onChange={(event) => setAssetName(event.target.value)}
             placeholder="Asset name"
-            className="lg:col-span-2 rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-white outline-none focus:border-green-300/60"
+            className="rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-white outline-none focus:border-green-300/60"
           />
 
           <select
@@ -578,16 +704,32 @@ export default function PracticePortfolio() {
           </div>
         )}
 
-        <div className="mt-4 grid grid-cols-1 lg:grid-cols-4 gap-4">
-          <input
-            value={quantity}
-            onChange={(event) => setQuantity(event.target.value)}
-            placeholder="Quantity"
-            type="number"
-            min="0"
-            step="any"
-            className="rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-white outline-none focus:border-green-300/60"
-          />
+        <div className="mt-4 grid grid-cols-1 lg:grid-cols-5 gap-4">
+          {tradeMode === "amount" ? (
+            <input
+              value={investmentAmount}
+              onChange={(event) => setInvestmentAmount(event.target.value)}
+              placeholder={
+                side === "buy"
+                  ? "Amount to invest, e.g. 5000"
+                  : "Amount to sell, e.g. 1000"
+              }
+              type="number"
+              min="0"
+              step="any"
+              className="rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-white outline-none focus:border-green-300/60"
+            />
+          ) : (
+            <input
+              value={quantity}
+              onChange={(event) => setQuantity(event.target.value)}
+              placeholder="Quantity"
+              type="number"
+              min="0"
+              step="any"
+              className="rounded-2xl border border-white/10 bg-black/40 px-5 py-4 text-white outline-none focus:border-green-300/60"
+            />
+          )}
 
           <input
             value={tradePrice}
@@ -610,6 +752,16 @@ export default function PracticePortfolio() {
             <option value="USD">USD</option>
             <option value="EUR">EUR</option>
           </select>
+
+          <div className="rounded-2xl border border-white/10 bg-black/30 px-5 py-4">
+            <p className="text-sm uppercase tracking-[0.2em] text-gray-400">
+              Calculated Quantity
+            </p>
+
+            <p className="mt-1 text-2xl font-bold">
+              {formatNumber(finalTradeQuantity)}
+            </p>
+          </div>
 
           <div className="rounded-2xl border border-white/10 bg-black/30 px-5 py-4">
             <p className="text-sm uppercase tracking-[0.2em] text-gray-400">
