@@ -54,8 +54,8 @@ export default function Home() {
             Markets
           </a>
 
-          <a href="#simulator-preview" className="hover:text-white">
-            Simulator
+          <a href="/stock-market-simulator" className="hover:text-white">
+            Simulator Guide
           </a>
 
           <a href="#dashboard" className="hover:text-white">
@@ -117,10 +117,10 @@ export default function Home() {
             </a>
 
             <a
-              href="#dashboard"
+              href="/stock-market-simulator"
               className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-7 py-3 font-bold text-cyan-300 backdrop-blur hover:bg-cyan-400/20"
             >
-              Explore Dashboard
+              Learn About Simulator
             </a>
 
             <a
@@ -176,10 +176,10 @@ export default function Home() {
                 </a>
 
                 <a
-                  href="/pricing"
+                  href="/stock-market-simulator"
                   className="rounded-full border border-white/10 bg-white/5 px-7 py-3 text-center font-bold text-white hover:bg-white/10"
                 >
-                  Compare Plans
+                  How the Simulator Works
                 </a>
               </div>
             </div>
@@ -373,6 +373,13 @@ export default function Home() {
             </a>
 
             <a
+              href="/stock-market-simulator"
+              className="rounded-full border border-white/10 bg-white/5 px-7 py-3 font-bold text-white hover:bg-white/10"
+            >
+              Read Simulator Guide
+            </a>
+
+            <a
               href="/pricing"
               className="rounded-full border border-white/10 bg-white/5 px-7 py-3 font-bold text-white hover:bg-white/10"
             >
@@ -385,6 +392,10 @@ export default function Home() {
 
         <footer className="mt-16 border-t border-white/10 pt-8 text-left text-sm text-gray-500">
           <div className="mb-6 flex flex-wrap gap-4">
+            <a href="/stock-market-simulator" className="hover:text-white">
+              Stock Market Simulator
+            </a>
+
             <a href="/privacy" className="hover:text-white">
               Privacy Policy
             </a>
