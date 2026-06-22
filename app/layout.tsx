@@ -42,6 +42,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+  },
   openGraph: {
     title: "StockStarter | Learn Markets Before You Invest",
     description:
@@ -63,6 +67,22 @@ export const metadata: Metadata = {
   },
 };
 
+const websiteStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "StockStarter",
+  alternateName: ["StockStarter App", "Stock Starter"],
+  url: siteUrl,
+};
+
+const organisationStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "StockStarter",
+  url: siteUrl,
+  logo: `${siteUrl}/favicon.ico`,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -73,7 +93,23 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteStructuredData),
+          }}
+        />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organisationStructuredData),
+          }}
+        />
+
+        {children}
+      </body>
     </html>
   );
 }
