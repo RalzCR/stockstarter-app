@@ -44,6 +44,15 @@ const toolCards = [
   "Decision journal",
 ];
 
+const plusTools = [
+  "Cloud Watchlist",
+  "Portfolio Tracker",
+  "Price Levels Tracker",
+  "Research Scorecard",
+  "Decision Journal",
+  "Research Notes",
+];
+
 export default function BeginnerInvestingDashboardPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-black px-6 py-8 text-white md:px-8 md:py-10">
@@ -199,6 +208,53 @@ export default function BeginnerInvestingDashboardPage() {
               add saved research tools for users who want to track their
               decisions more seriously.
             </p>
+          </div>
+        </section>
+
+        <section className="mt-16 rounded-3xl border border-purple-400/20 bg-purple-400/10 p-8 md:p-10">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1fr] lg:items-center">
+            <div>
+              <p className="mb-4 text-sm uppercase tracking-[0.3em] text-purple-300">
+                When you are ready to get organised
+              </p>
+
+              <h2 className="mb-5 text-4xl font-bold md:text-5xl">
+                Upgrade from watching the market to tracking your process.
+              </h2>
+
+              <p className="mb-6 text-lg leading-relaxed text-gray-300">
+                The free dashboard helps you learn what is happening. Plus helps
+                you save what you are thinking, track your ideas and build a
+                repeatable research routine.
+              </p>
+
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <a
+                  href="/pricing"
+                  className="rounded-full bg-purple-400 px-7 py-3 text-center font-bold text-black hover:bg-purple-300"
+                >
+                  View Plus Plan
+                </a>
+
+                <a
+                  href="/premium"
+                  className="rounded-full border border-white/10 bg-white/5 px-7 py-3 text-center font-bold text-white hover:bg-white/10"
+                >
+                  Open Workspace
+                </a>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {plusTools.map((tool) => (
+                <div
+                  key={tool}
+                  className="rounded-2xl border border-white/10 bg-black/30 p-5 font-semibold text-gray-200"
+                >
+                  {tool}
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
