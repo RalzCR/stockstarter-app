@@ -58,8 +58,8 @@ export default function Home() {
             Simulator Guide
           </a>
 
-          <a href="#dashboard" className="hover:text-white">
-            Dashboard
+          <a href="/beginner-investing-dashboard" className="hover:text-white">
+            Beginner Dashboard
           </a>
 
           <a href="#workspace-preview" className="hover:text-white">
@@ -117,10 +117,10 @@ export default function Home() {
             </a>
 
             <a
-              href="/stock-market-simulator"
+              href="/beginner-investing-dashboard"
               className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-7 py-3 font-bold text-cyan-300 backdrop-blur hover:bg-cyan-400/20"
             >
-              Learn About Simulator
+              Explore Beginner Dashboard
             </a>
 
             <a
@@ -213,6 +213,51 @@ export default function Home() {
                   </p>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mb-16 rounded-3xl border border-green-400/20 bg-green-400/10 p-8 md:p-10 backdrop-blur-xl">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div>
+              <p className="mb-4 text-sm uppercase tracking-[0.3em] text-green-300">
+                Beginner dashboard
+              </p>
+
+              <h2 className="mb-5 text-4xl font-bold md:text-5xl">
+                One clear place to start learning the market.
+              </h2>
+
+              <p className="mb-7 text-lg leading-relaxed text-gray-300">
+                Instead of jumping between confusing platforms, StockStarter
+                brings market data, charts, news, simulator tools and research
+                features into one beginner-friendly workspace.
+              </p>
+
+              <a
+                href="/beginner-investing-dashboard"
+                className="inline-flex rounded-full bg-green-400 px-7 py-3 text-center font-bold text-black hover:bg-green-300"
+              >
+                Learn About the Dashboard
+              </a>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {[
+                "Live market cards",
+                "Stock and crypto charts",
+                "Market news",
+                "Practice simulator",
+                "Research notes",
+                "Decision journal",
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="rounded-2xl border border-white/10 bg-black/30 p-5 font-semibold text-gray-200"
+                >
+                  {item}
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -380,10 +425,10 @@ export default function Home() {
             </a>
 
             <a
-              href="/pricing"
+              href="/beginner-investing-dashboard"
               className="rounded-full border border-white/10 bg-white/5 px-7 py-3 font-bold text-white hover:bg-white/10"
             >
-              View Pricing
+              View Beginner Dashboard
             </a>
           </div>
         </section>
@@ -394,6 +439,10 @@ export default function Home() {
           <div className="mb-6 flex flex-wrap gap-4">
             <a href="/stock-market-simulator" className="hover:text-white">
               Stock Market Simulator
+            </a>
+
+            <a href="/beginner-investing-dashboard" className="hover:text-white">
+              Beginner Investing Dashboard
             </a>
 
             <a href="/privacy" className="hover:text-white">

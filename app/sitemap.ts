@@ -16,6 +16,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     {
+      route: "/beginner-investing-dashboard",
+      changeFrequency: "weekly" as const,
+      priority: 0.95,
+    },
+    {
       route: "/pricing",
       changeFrequency: "monthly" as const,
       priority: 0.9,
