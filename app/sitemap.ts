@@ -21,6 +21,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     {
+      route: "/stockhelper",
+      changeFrequency: "weekly" as const,
+      priority: 0.9,
+    },
+    {
       route: "/pricing",
       changeFrequency: "monthly" as const,
       priority: 0.9,

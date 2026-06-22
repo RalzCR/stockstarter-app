@@ -4,22 +4,29 @@ import { useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 
 type SubscribeButtonProps = {
-  label: string;
   plan: "plus" | "premium";
+  label: string;
+  className?: string;
 };
 
-export default function SubscribeButton({ label, plan }: SubscribeButtonProps) {
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+export default function SubscribeButton({
+  plan,
+  label,
+  className,
+}: SubscribeButtonProps) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  async function startCheckout() {
-    setLoading(true);
-    setMessage("");
+  async function handleSubscribe() {
+    setIsLoading(true);
+    setErrorMessage("");
 
     try {
-      const { data } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
-      if (!data.session?.access_token) {
+      if (!session?.access_token) {
         window.location.href = "/login";
         return;
       }
@@ -28,41 +35,49 @@ export default function SubscribeButton({ label, plan }: SubscribeButtonProps) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${data.session.access_token}`,
+          Authorization: `Bearer ${session.access_token}`,
         },
-        body: JSON.stringify({
-          plan,
-        }),
+        body: JSON.stringify({ plan }),
       });
 
-      const checkoutData = await response.json();
+      const result = await response.json();
 
-      if (!response.ok || !checkoutData.url) {
-        setMessage(checkoutData.message || "Checkout could not be started.");
+      if (!response.ok) {
+        setErrorMessage(result.error || "Checkout could not be started.");
+        setIsLoading(false);
         return;
       }
 
-      window.location.href = checkoutData.url;
+      if (result.url) {
+        window.location.href = result.url;
+        return;
+      }
+
+      setErrorMessage("Checkout link was not returned.");
     } catch {
-      setMessage("Checkout could not be started. Please try again.");
+      setErrorMessage("Checkout could not be started. Please try again.");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }
 
   return (
     <div>
       <button
-        onClick={startCheckout}
-        disabled={loading}
-        className="rounded-full bg-green-400 px-7 py-3 font-bold text-black hover:bg-green-300 disabled:opacity-50"
+        type="button"
+        onClick={handleSubscribe}
+        disabled={isLoading}
+        className={
+          className ||
+          "flex w-full justify-center rounded-full bg-green-400 px-6 py-3 font-bold text-black hover:bg-green-300 disabled:cursor-not-allowed disabled:opacity-60"
+        }
       >
-        {loading ? "Opening checkout..." : label}
+        {isLoading ? "Loading..." : label}
       </button>
 
-      {message && (
-        <p className="mt-3 text-sm text-red-400">
-          {message}
+      {errorMessage && (
+        <p className="mt-3 text-sm font-semibold text-red-300">
+          {errorMessage}
         </p>
       )}
     </div>

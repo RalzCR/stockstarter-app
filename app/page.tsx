@@ -12,9 +12,9 @@ const featureCards = [
       "Use the Stock Market Simulator to build a virtual £100,000 portfolio, test ideas and understand how buying and selling works.",
   },
   {
-    title: "Track the market in one place",
+    title: "Ask StockHelper AI",
     description:
-      "Follow stocks, crypto, charts, news and market movement from one clean beginner-friendly dashboard.",
+      "Plus and Premium users can ask beginner-friendly investing questions, research stocks and understand risks with StockHelper AI.",
   },
   {
     title: "Build better research habits",
@@ -24,6 +24,7 @@ const featureCards = [
 ];
 
 const workspaceTools = [
+  "StockHelper AI",
   "Cloud Watchlist",
   "Portfolio Tracker",
   "Price Levels Tracker",
@@ -62,12 +63,12 @@ export default function Home() {
             Beginner Dashboard
           </a>
 
-          <a href="#workspace-preview" className="hover:text-white">
-            Workspace
+          <a href="/stockhelper" className="hover:text-white">
+            StockHelper AI
           </a>
 
-          <a href="#news" className="hover:text-white">
-            News
+          <a href="#workspace-preview" className="hover:text-white">
+            Workspace
           </a>
 
           <a href="/pricing" className="hover:text-white">
@@ -92,7 +93,7 @@ export default function Home() {
       <section className="relative z-10 mx-auto max-w-7xl">
         <div className="mx-auto max-w-5xl text-center">
           <div className="mb-6 inline-block rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-gray-200 backdrop-blur">
-            Beginner-friendly stock, crypto and market research tools
+            Beginner-friendly stock, crypto, AI and market research tools
           </div>
 
           <h1 className="mb-6 text-5xl font-bold leading-tight md:text-7xl">
@@ -104,8 +105,8 @@ export default function Home() {
 
           <p className="mx-auto mb-10 max-w-3xl text-xl leading-relaxed text-gray-300">
             StockStarter helps beginners practise with virtual money, follow
-            live market data, organise research and build better investing
-            habits without the confusion.
+            live market data, ask StockHelper AI, organise research and build
+            better investing habits without the confusion.
           </p>
 
           <div className="mb-16 flex flex-col justify-center gap-4 sm:flex-row">
@@ -117,10 +118,10 @@ export default function Home() {
             </a>
 
             <a
-              href="/beginner-investing-dashboard"
-              className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-7 py-3 font-bold text-cyan-300 backdrop-blur hover:bg-cyan-400/20"
+              href="/stockhelper"
+              className="rounded-full border border-purple-400/30 bg-purple-400/10 px-7 py-3 font-bold text-purple-300 backdrop-blur hover:bg-purple-400/20"
             >
-              Explore Beginner Dashboard
+              Try StockHelper AI
             </a>
 
             <a
@@ -217,6 +218,65 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="mb-16 rounded-3xl border border-purple-400/20 bg-purple-400/10 p-8 md:p-10 backdrop-blur-xl">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+            <div>
+              <p className="mb-4 text-sm uppercase tracking-[0.3em] text-purple-300">
+                New paid feature
+              </p>
+
+              <h2 className="mb-5 text-4xl font-bold md:text-5xl">
+                Ask StockHelper AI before making decisions.
+              </h2>
+
+              <p className="mb-7 text-lg leading-relaxed text-gray-300">
+                StockHelper AI helps Plus and Premium users understand investing
+                terms, research stocks, compare bullish and bearish points, spot
+                risks and build a clearer decision framework. It is educational
+                only and does not give direct buy or sell instructions.
+              </p>
+
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <a
+                  href="/stockhelper"
+                  className="rounded-full bg-purple-400 px-7 py-3 text-center font-bold text-black hover:bg-purple-300"
+                >
+                  Open StockHelper AI
+                </a>
+
+                <a
+                  href="/pricing"
+                  className="rounded-full border border-white/10 bg-white/5 px-7 py-3 text-center font-bold text-white hover:bg-white/10"
+                >
+                  View Plus & Premium
+                </a>
+              </div>
+            </div>
+
+            <div className="rounded-3xl border border-white/10 bg-black/30 p-6">
+              <p className="mb-4 text-sm uppercase tracking-[0.25em] text-gray-400">
+                Example questions
+              </p>
+
+              <div className="space-y-3">
+                {[
+                  "What should I research before buying a stock?",
+                  "Explain P/E ratio in simple terms.",
+                  "What are bullish and bearish points for Apple?",
+                  "How do I think about risk if I already own a stock?",
+                ].map((question) => (
+                  <div
+                    key={question}
+                    className="rounded-2xl border border-white/10 bg-white/5 p-4 font-semibold text-gray-200"
+                  >
+                    {question}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="mb-16 rounded-3xl border border-green-400/20 bg-green-400/10 p-8 md:p-10 backdrop-blur-xl">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div>
@@ -230,8 +290,8 @@ export default function Home() {
 
               <p className="mb-7 text-lg leading-relaxed text-gray-300">
                 Instead of jumping between confusing platforms, StockStarter
-                brings market data, charts, news, simulator tools and research
-                features into one beginner-friendly workspace.
+                brings market data, charts, news, simulator tools, AI help and
+                research features into one beginner-friendly workspace.
               </p>
 
               <a
@@ -246,10 +306,10 @@ export default function Home() {
               {[
                 "Live market cards",
                 "Stock and crypto charts",
+                "StockHelper AI",
                 "Market news",
                 "Practice simulator",
                 "Research notes",
-                "Decision journal",
               ].map((item) => (
                 <div
                   key={item}
@@ -280,13 +340,13 @@ export default function Home() {
             </h2>
 
             <p className="text-lg leading-relaxed text-gray-300">
-              StockStarter Plus and Premium help you save your research, track
-              holdings, set price levels, score opportunities and record why you
-              made each decision.
+              StockStarter Plus and Premium help you ask better research
+              questions, save notes, track holdings, set price levels, score
+              opportunities and record why you made each decision.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {workspaceTools.map((tool) => (
               <div
                 key={tool}
@@ -303,6 +363,13 @@ export default function Home() {
               className="rounded-full bg-green-400 px-7 py-3 text-center font-bold text-black hover:bg-green-300"
             >
               Open Workspace
+            </a>
+
+            <a
+              href="/stockhelper"
+              className="rounded-full border border-purple-400/30 bg-purple-400/10 px-7 py-3 text-center font-bold text-purple-300 hover:bg-purple-400/20"
+            >
+              Try StockHelper AI
             </a>
 
             <a
@@ -360,14 +427,14 @@ export default function Home() {
 
             <div className="rounded-2xl border border-white/10 bg-black/30 p-6">
               <p className="mb-3 text-sm uppercase tracking-[0.25em] text-yellow-400">
-                3. Research
+                3. Ask
               </p>
 
-              <h3 className="mb-3 text-2xl font-bold">Organise your thinking</h3>
+              <h3 className="mb-3 text-2xl font-bold">Use StockHelper AI</h3>
 
               <p className="text-gray-300">
-                Save notes, score assets, track price levels and build a clearer
-                decision process.
+                Ask beginner-friendly questions about investing terms, risks,
+                research checklists and how to think through decisions.
               </p>
             </div>
 
@@ -405,8 +472,8 @@ export default function Home() {
 
           <p className="mx-auto mb-8 max-w-3xl text-lg leading-relaxed text-gray-300">
             Use StockStarter to learn the basics, practise with virtual money
-            and upgrade when you are ready to save your research and track your
-            process properly.
+            and upgrade when you are ready to use StockHelper AI, save research
+            and track your decision process properly.
           </p>
 
           <div className="flex flex-col justify-center gap-3 sm:flex-row">
@@ -418,17 +485,17 @@ export default function Home() {
             </a>
 
             <a
-              href="/stock-market-simulator"
-              className="rounded-full border border-white/10 bg-white/5 px-7 py-3 font-bold text-white hover:bg-white/10"
+              href="/stockhelper"
+              className="rounded-full border border-purple-400/30 bg-purple-400/10 px-7 py-3 font-bold text-purple-300 hover:bg-purple-400/20"
             >
-              Read Simulator Guide
+              Open StockHelper AI
             </a>
 
             <a
-              href="/beginner-investing-dashboard"
+              href="/pricing"
               className="rounded-full border border-white/10 bg-white/5 px-7 py-3 font-bold text-white hover:bg-white/10"
             >
-              View Beginner Dashboard
+              Compare Plans
             </a>
           </div>
         </section>
@@ -437,6 +504,10 @@ export default function Home() {
 
         <footer className="mt-16 border-t border-white/10 pt-8 text-left text-sm text-gray-500">
           <div className="mb-6 flex flex-wrap gap-4">
+            <a href="/stockhelper" className="hover:text-white">
+              StockHelper AI
+            </a>
+
             <a href="/stock-market-simulator" className="hover:text-white">
               Stock Market Simulator
             </a>
@@ -479,9 +550,10 @@ export default function Home() {
           </div>
 
           <p className="mb-3">
-            StockStarter is an educational market dashboard and research
-            organisation tool. It does not provide financial advice, investment
-            recommendations, brokerage services or trading signals.
+            StockStarter is an educational market dashboard, AI research
+            assistant and research organisation tool. It does not provide
+            financial advice, investment recommendations, brokerage services or
+            trading signals.
           </p>
 
           <p>
