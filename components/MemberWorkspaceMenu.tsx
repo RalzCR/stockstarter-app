@@ -5,46 +5,17 @@ type MemberWorkspaceMenuProps = {
 };
 
 const workspaceLinks = [
-  {
-    label: "Practice Portfolio",
-    href: "/simulator",
-  },
-  {
-    label: "Cloud Watchlist",
-    href: "#cloud-watchlist",
-  },
-  {
-    label: "Portfolio Tracker",
-    href: "#portfolio-tracker",
-  },
-  {
-    label: "Price Levels",
-    href: "#price-levels",
-  },
-  {
-    label: "Research Scorecard",
-    href: "#research-scorecard",
-  },
-  {
-    label: "Decision Journal",
-    href: "#decision-journal",
-  },
-  {
-    label: "Charts",
-    href: "#chart-workspace",
-  },
-  {
-    label: "Research Notes",
-    href: "#research-notes",
-  },
-  {
-    label: "Premium Reports",
-    href: "#premium-reports",
-  },
-  {
-    label: "News",
-    href: "#market-news",
-  },
+  { label: "StockHelper AI", href: "/stockhelper" },
+  { label: "Practice Portfolio", href: "/simulator" },
+  { label: "Cloud Watchlist", href: "#cloud-watchlist" },
+  { label: "Portfolio Tracker", href: "#portfolio-tracker" },
+  { label: "Price Levels", href: "#price-levels" },
+  { label: "Research Scorecard", href: "#research-scorecard" },
+  { label: "Decision Journal", href: "#decision-journal" },
+  { label: "Charts", href: "#chart-workspace" },
+  { label: "Research Notes", href: "#research-notes" },
+  { label: "Premium Reports", href: "#premium-reports" },
+  { label: "News", href: "#market-news" },
 ];
 
 export default function MemberWorkspaceMenu({ plan }: MemberWorkspaceMenuProps) {
